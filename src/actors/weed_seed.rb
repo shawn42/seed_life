@@ -31,7 +31,7 @@ define_actor :weed_seed do
 
       def room_to_grow?
         others = world.occupants_for_box(actor.x - 3, actor.y - 3, actor.x + 3, actor.y + 3)
-        others.select{|other|other.actor_type == actor.actor_type}.size < 7
+        others.select{|other|other.actor_type == actor.actor_type}.size < 3
       end
     end
   end

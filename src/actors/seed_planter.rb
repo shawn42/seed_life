@@ -11,6 +11,7 @@ define_actor :seed_planter do
       input_manager.reg(:down, Kb3) { change_seed_to :bush_seed }
       input_manager.reg(:down, Kb4) { change_seed_to :vine_seed }
       input_manager.reg(:down, Kb5) { change_seed_to :tree_seed }
+      input_manager.reg(:down, Kb6) { change_seed_to :flower_seed }
       input_manager.reg(:down, Kb0) { change_seed_to :weed_seed }
 
       input_manager.reg :mouse_up, MsLeft do |event|
