@@ -8,7 +8,6 @@ define_actor :weed_planter do
       timer_manager.add_timer weed_timer_name, actor.force_weed_every do
         add_weed
       end
-      add_weed
 
       reacts_with :remove
     end

@@ -16,6 +16,14 @@ class World
 
     old_thing.remove if old_thing && old_thing.respond_to?(:remove)
 
+    # seed_count = 0
+    # @grid.each do |x, y_hash|
+    #   y_hash.each do |y, thing|
+    #     seed_count += 1 if thing
+    #   end
+    # end
+    # log "ADDED #{thing.actor_type}"
+    # log "SEED COUNT: #{seed_count}"
   end
 
   def occupants_for_box(x,y,w,h)
