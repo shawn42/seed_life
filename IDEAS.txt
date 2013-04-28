@@ -1,1 +1,2 @@
-* seeds could pulse when they update?
+* plants could "tap" water seeds.. they could dry up?
+* flowers of different (random) colors? behave like weeds?
