@@ -1,5 +1,5 @@
 define_actor :water_seed do
-  has_attributes color: Color::BLUE,
+  has_attributes color: Color.argb(0xFF00BFFF),
     view: :seed_view
   
   has_behaviors do
@@ -19,7 +19,6 @@ define_actor :water_seed do
     helpers do
       def grow
         if actor.pattern_number <= 2
-          # TODO only do this once per water seed?
           grow_relative 0, 1
           grow_relative 1, 0
           grow_relative 0, -1

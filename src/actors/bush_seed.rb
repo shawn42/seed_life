@@ -4,7 +4,7 @@ define_actor :bush_seed do
   
   has_behaviors do
     positioned
-    seed grow_interval: 4_000
+    seed grow_interval: 5_000
   end
 
   behavior do

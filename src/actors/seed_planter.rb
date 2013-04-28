@@ -9,13 +9,14 @@ define_actor :seed_planter do
       input_manager.reg(:down, Kb1) { change_seed_to :rock_seed }
       input_manager.reg(:down, Kb2) { change_seed_to :water_seed }
       input_manager.reg(:down, Kb3) { change_seed_to :bush_seed }
+      input_manager.reg(:down, Kb4) { change_seed_to :vine_seed }
       input_manager.reg(:down, Kb0) { change_seed_to :weed_seed }
 
       input_manager.reg :mouse_up, MsLeft do |event|
         # XXX known bug, will try to create seed from this event AND the drag event
         # the world wont allow it for now
         pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
-        seed = stage.create_actor actor.current_seed, x: pos.x, y: pos.y
+        stage.create_actor actor.current_seed, x: pos.x, y: pos.y unless world.occupant_at?(pos.x,pos.y)
       end
 
       input_manager.reg :mouse_drag, MsLeft do |event|

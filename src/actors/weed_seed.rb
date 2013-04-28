@@ -1,10 +1,10 @@
 define_actor :weed_seed do
-  has_attributes color: Color::RED,
+  has_attributes color: Color.argb(0xFFFF5353),
     view: :seed_view
 
   has_behaviors do
     positioned
-    seed grow_interval: 3_000
+    seed grow_interval: 10_000
   end
 
   behavior do
