@@ -7,10 +7,7 @@ class Planter
   def plant(actor_type, opts={})
     x = opts[:x]
     y = opts[:y]
-    if world.in_bounds?(x, y)
-      # log "creating #{actor_type} at #{x},#{y}"
-      stage.create_actor(actor_type, x: x , y: y) 
-    end
+    stage.create_actor(actor_type, opts) if world.in_bounds?(x, y)
   end
 
 end

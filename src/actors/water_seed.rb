@@ -8,7 +8,7 @@ define_actor :water_seed do
   end
 
   behavior do
-    requires :world, :stage
+    requires :world, :planter
 
     setup do
       actor.has_attributes pattern_number: 1
@@ -30,7 +30,7 @@ define_actor :water_seed do
         x = actor.x + dx
         y = actor.y + dy
         occupant = world.occupant_at(x, y)
-        seed = stage.create_actor(:water_seed, x: x , y: y, pattern_number: actor.pattern_number+1) unless occupant && [:water_seed, :rock_seed].include?(occupant.actor_type)
+        planter.plant(:water_seed, x: x , y: y, pattern_number: actor.pattern_number+1) unless occupant && [:water_seed, :rock_seed].include?(occupant.actor_type)
       end
 
     end

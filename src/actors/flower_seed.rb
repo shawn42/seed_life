@@ -8,7 +8,7 @@ define_actor :flower_seed do
   end
 
   behavior do
-    requires :world, :stage
+    requires :world, :planter
 
     setup do
       actor.has_attributes pattern_number: 1
@@ -45,7 +45,7 @@ define_actor :flower_seed do
         x = actor.x + dx
         y = actor.y + dy
         occupant = world.occupant_at(x, y)
-        stage.create_actor(actor.actor_type, x: x , y: y, color: colors.sample, pattern_number: actor.pattern_number+1) unless occupant
+        planter.plant(actor.actor_type, x: x , y: y, color: colors.sample, pattern_number: actor.pattern_number+1) unless occupant
       end
     end
   end

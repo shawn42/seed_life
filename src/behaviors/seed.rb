@@ -20,7 +20,8 @@ define_behavior :seed do
     def seed_grow_timer_name; "seed_grow_#{object_id}" end
     def remove
       # seeds do not move, so this is safe
-      world.occupy(actor.x, actor.y, nil)
+      occ = world.occupant_at(actor.x, actor.y)
+      world.occupy(actor.x, actor.y, nil) if occ == actor
       timer_manager.remove_timer seed_grow_timer_name
     end
   end
