@@ -1,9 +1,10 @@
 define_behavior :seed do
-  requires :stage, :world, :timer_manager
+  requires :stage, :world, :timer_manager, :sound_manager
 
   # requires_behaviors :highlight_on_grow
   requires_behaviors :oversize_on_create
   setup do
+    sound_manager.play_sound :pop
     world.occupy(actor.x, actor.y, actor)
 
     grow_interval = opts[:grow_interval]
