@@ -1,0 +1,53 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    algorithms (0.5.0)
+    coderay (1.0.9)
+    conject (0.1.7)
+    diff-lcs (1.2.4)
+    gamebox (0.4.0.rc11)
+      conject (>= 0.0.8)
+      gosu
+      i18n
+      kvo (>= 0.1.0)
+      listen (>= 0.5.3)
+      publisher
+      require_all
+      thor (>= 0.14.6)
+      tween
+    gosu (0.7.47.1)
+    i18n (0.6.4)
+    kvo (0.1.0)
+      publisher
+    listen (0.7.2)
+    method_source (0.8.1)
+    polaris (1.1.2)
+      algorithms
+    pry (0.9.12.1)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    publisher (1.1.2)
+    require_all (1.2.1)
+    rspec (2.13.0)
+      rspec-core (~> 2.13.0)
+      rspec-expectations (~> 2.13.0)
+      rspec-mocks (~> 2.13.0)
+    rspec-core (2.13.1)
+    rspec-expectations (2.13.0)
+      diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.13.1)
+    slop (3.4.4)
+    thor (0.18.1)
+    tween (0.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  conject
+  gamebox (= 0.4.0.rc11)
+  polaris
+  pry
+  require_all
+  rspec
