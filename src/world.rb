@@ -1,6 +1,10 @@
 class World
+  construct_with :config_manager
   def initialize
     @grid = {}
+    width, height = *config_manager[:screen_resolution]
+    @width = width / CoordinatesTranslator::CELL_SIZE
+    @height = height / CoordinatesTranslator::CELL_SIZE
   end
 
   def occupant_at(x,y)
@@ -9,12 +13,23 @@ class World
   end
   alias occupant_at? occupant_at
 
-  def occupy(x,y,thing)
-    @grid[x.to_i] ||= {}
-    old_thing = @grid[x.to_i][y.to_i]
-    @grid[x.to_i][y.to_i] = thing
+  def in_bounds?(x,y)
+    x >= 0 && x < @width && y >= 0 && y <= @height
+  end
 
-    old_thing.remove if old_thing && old_thing.respond_to?(:remove)
+  def occupy(x,y,thing)
+    if x < 0 || x > @width || y < 0 || y > @height
+      # shouldn't be possible
+      thing.remove 
+    else
+
+      @grid[x.to_i] ||= {}
+      old_thing = @grid[x.to_i][y.to_i]
+    # log "ADDED #{thing.actor_type}"
+      @grid[x.to_i][y.to_i] = thing
+
+      old_thing.remove if old_thing && old_thing.respond_to?(:remove)
+    end
 
     # seed_count = 0
     # @grid.each do |x, y_hash|
@@ -22,7 +37,6 @@ class World
     #     seed_count += 1 if thing
     #   end
     # end
-    # log "ADDED #{thing.actor_type}"
     # log "SEED COUNT: #{seed_count}"
   end
 

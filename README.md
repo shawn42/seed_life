@@ -5,7 +5,3 @@
  * click or drag to plant
  * right click to pull weeds
  * build your garden
- 
- 
-## Known Issues
-* Weed population gets out of hand quickly and can have performance implications

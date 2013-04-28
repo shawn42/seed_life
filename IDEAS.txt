@@ -1,3 +1,4 @@
 * plants could "tap" water seeds.. they could dry up?
 * flowers of different (random) colors? behave like weeds?
   * maybe plant in rows?
+* update all create_actor calls to go through the planter

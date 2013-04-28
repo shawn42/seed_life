@@ -8,7 +8,7 @@ define_actor :weed_seed do
   end
 
   behavior do
-    requires :world, :stage
+    requires :world, :stage, :planter
 
     setup do
       reacts_with :harvest, :grow
@@ -25,7 +25,7 @@ define_actor :weed_seed do
           dy = rand(8) - 4
           x = actor.x + dx
           y = actor.y + dy
-          stage.create_actor(actor.actor_type, x: x , y: y) unless world.occupant_at?(x, y)
+          planter.plant(actor.actor_type, x: x , y: y) unless world.occupant_at?(x, y)
         end
       end
 
