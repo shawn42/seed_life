@@ -1,7 +1,7 @@
 APP_ROOT = "#{File.join(File.dirname(__FILE__),"..")}/"
 
 require 'yaml'
-require 'pry'
+# require 'pry'
 require 'line_of_sight'
 require 'gamebox'
 

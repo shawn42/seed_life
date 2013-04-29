@@ -4,7 +4,7 @@ source "http://rubygems.org"
 gem 'require_all'
 gem "gamebox", '>= 0.4.0'
 gem "conject"
-gem "rspec"
-gem "pry"
+# gem "rspec"
+# gem "pry"
 gem 'polaris'
 gem 'releasy'

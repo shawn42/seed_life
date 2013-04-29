@@ -34,9 +34,10 @@ Releasy::Project.new do
 
   # Create a variety of releases, for all platforms.
   add_build :osx_app do
+    # lipo -remove x86_64 SeedLife.app/Contents/MacOS/SeedLife -output SeedLife.app/Contents/MacOS/SeedLife
     url "com.github.shawn42.seed_life"
-    wrapper "#{ENV['HOME']}/tmp/gosu-mac-wrapper-0.7.47.tar.gz" 
-    # icon "data/icon.icns"
+    wrapper "#{ENV['HOME']}/tmp/gosu-mac-wrapper-0.7.41.tar.gz" 
+    icon "data/icons/seedlife.icns"
     add_package :tar_gz
   end
 
@@ -44,12 +45,12 @@ Releasy::Project.new do
     add_package :tar_gz
   end
 
-  # # If building on a Windows machine, :windows_folder and/or :windows_installer are recommended.
-  # add_build :windows_folder do
-  #   icon "media/icon.ico"
-  #   executable_type :windows # Assuming you don't want it to run with a console window.
-  #   add_package :exe # Windows self-extracting archive.
-  # end
+  # If building on a Windows machine, :windows_folder and/or :windows_installer are recommended.
+  add_build :windows_folder do
+    icon "data/icons/seedlife.ico"
+    executable_type :windows # Assuming you don't want it to run with a console window.
+    add_package :exe # Windows self-extracting archive.
+  end
 
   # add_build :windows_installer do
   #   icon "media/icon.ico"
