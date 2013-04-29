@@ -1,11 +1,15 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    algorithms (0.5.0)
+    algorithms (0.6.1)
     coderay (1.0.9)
     conject (0.1.7)
+    cri (2.1.0)
     diff-lcs (1.2.4)
-    gamebox (0.4.0.rc11)
+    faster_xml_simple (0.5.0)
+      libxml-ruby (>= 0.3.8.4)
+    ffi (1.8.1)
+    gamebox (0.4.0)
       conject (>= 0.0.8)
       gosu
       i18n
@@ -13,14 +17,27 @@ GEM
       listen (>= 0.5.3)
       publisher
       require_all
-      thor (>= 0.14.6)
+      thor
       tween
     gosu (0.7.47.1)
+    httpclient (2.3.3)
     i18n (0.6.4)
+    json (1.7.7)
     kvo (0.1.0)
       publisher
-    listen (0.7.2)
+    libxml-ruby (2.6.0)
+    listen (1.0.2)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+      rb-kqueue (>= 0.2)
     method_source (0.8.1)
+    net-github-upload (0.0.8)
+      faster_xml_simple
+      httpclient
+      json
+      nokogiri (>= 1.4.0)
+    nokogiri (1.5.9)
+    ocra (1.3.1)
     polaris (1.1.2)
       algorithms
     pry (0.9.12.1)
@@ -28,6 +45,18 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
     publisher (1.1.2)
+    rake (0.9.2.2)
+    rb-fsevent (0.9.3)
+    rb-inotify (0.9.0)
+      ffi (>= 0.5.0)
+    rb-kqueue (0.2.0)
+      ffi (>= 0.5.0)
+    releasy (0.2.2)
+      cri (~> 2.1.0)
+      net-github-upload (~> 0.0.8)
+      ocra (~> 1.3.0)
+      rake (~> 0.9.2.2)
+      thor (~> 0.14.6)
     require_all (1.2.1)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
@@ -38,7 +67,7 @@ GEM
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
     slop (3.4.4)
-    thor (0.18.1)
+    thor (0.14.6)
     tween (0.1.2)
 
 PLATFORMS
@@ -46,8 +75,9 @@ PLATFORMS
 
 DEPENDENCIES
   conject
-  gamebox (= 0.4.0.rc11)
+  gamebox (>= 0.4.0)
   polaris
   pry
+  releasy
   require_all
   rspec

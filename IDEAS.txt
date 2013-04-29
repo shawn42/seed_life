@@ -2,3 +2,7 @@
 * flowers of different (random) colors? behave like weeds?
   * maybe plant in rows?
 * update all create_actor calls to go through the planter
+* add critters? use polaris pathfinding? they have requirements for randomly spawning
+  * squirrels like trees
+  * bees like flowers, etc
+  * would NOT use seed_view (they will require sub "pixel" rendering
