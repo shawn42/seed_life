@@ -5,10 +5,12 @@ define_actor :bush_seed do
   has_behaviors do
     positioned
     seed grow_interval: 5_000
+    oversize_on_create
+    pop_on_create
   end
 
   behavior do
-    requires :world, :stage
+    requires :world, :planter
 
     setup do
       actor.has_attributes pattern_number: 1
@@ -32,7 +34,7 @@ define_actor :bush_seed do
       end
       def can_grow?
         if actor.pattern_number < 2
-          others = world.occupants_for_box(actor.x - 3, actor.y - 3, actor.x + 3, actor.y + 3)
+          others = world.occupants_for_box(actor.x - 3, actor.y - 3, World::GROUND, actor.x + 3, actor.y + 3)
           others.any?{|actor| actor.actor_type == :water_seed}
         end
       end
@@ -40,8 +42,8 @@ define_actor :bush_seed do
       def grow_relative(dx, dy)
         x = actor.x + dx
         y = actor.y + dy
-        occupant = world.occupant_at(x, y)
-        stage.create_actor(actor.actor_type, x: x , y: y, pattern_number: actor.pattern_number+1) unless occupant
+        occupant = world.occupant_at(x, y, World::GROUND)
+        planter.plant(actor.actor_type, x: x , y: y, pattern_number: actor.pattern_number+1) unless occupant
       end
 
     end

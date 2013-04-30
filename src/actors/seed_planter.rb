@@ -1,7 +1,7 @@
  # TODO this guy will have a view that draws the dragging line
 define_actor :seed_planter do
   behavior do
-    requires :world, :input_manager, :stage, :coordinates_translator
+    requires :world, :input_manager, :planter, :coordinates_translator
     
     setup do
       actor.has_attributes current_seed: :rock_seed
@@ -18,7 +18,7 @@ define_actor :seed_planter do
         # XXX known bug, will try to create seed from this event AND the drag event
         # the world wont allow it for now
         pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
-        stage.create_actor actor.current_seed, x: pos.x, y: pos.y unless world.occupant_at?(pos.x,pos.y)
+        planter.plant(actor.current_seed, x: pos.x, y: pos.y) unless world.occupant_at?(pos.x,pos.y, World::GROUND)
       end
 
       input_manager.reg :mouse_drag, MsLeft do |event|
@@ -31,9 +31,15 @@ define_actor :seed_planter do
         coords = LineOfSite.new(nil).brensenham_line(from.x.to_i, from.y.to_i, to.x.to_i, to.y.to_i)
 
         coords.each do |(x,y)|
-          # TODO change this to use seed_inspector#can_plant?(type, x, y)
-          stage.create_actor actor.current_seed, x: x, y: y unless world.occupant_at?(x,y)
+          planter.plant actor.current_seed, x: x, y: y unless world.occupant_at?(x,y, World::GROUND)
         end
+      end
+
+      # TODO replace with cloud_planter
+      input_manager.reg(:down, KbC) do
+        x = 8
+        y = 3
+        planter.plant(:cloud_seed, x: x, y: y, slice: World::SKY) unless world.occupant_at?(x, y, World::SKY)
       end
 
       reacts_with :remove

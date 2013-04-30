@@ -5,10 +5,12 @@ define_actor :weed_seed do
   has_behaviors do
     positioned
     seed grow_interval: 10_000
+    oversize_on_create
+    pop_on_create
   end
 
   behavior do
-    requires :world, :stage, :planter
+    requires :world, :planter
 
     setup do
       reacts_with :harvest, :grow
@@ -25,12 +27,12 @@ define_actor :weed_seed do
           dy = rand(8) - 4
           x = actor.x + dx
           y = actor.y + dy
-          planter.plant(actor.actor_type, x: x , y: y) unless world.occupant_at?(x, y)
+          planter.plant(actor.actor_type, x: x , y: y) unless world.occupant_at?(x, y, World::GROUND)
         end
       end
 
       def room_to_grow?
-        others = world.occupants_for_box(actor.x - 3, actor.y - 3, actor.x + 3, actor.y + 3)
+        others = world.occupants_for_box(actor.x - 3, actor.y - 3, World::GROUND, 6, 6)
         others.select{|other|other.actor_type == actor.actor_type}.size < 3
       end
     end

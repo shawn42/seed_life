@@ -6,3 +6,4 @@
   * squirrels like trees
   * bees like flowers, etc
   * would NOT use seed_view (they will require sub "pixel" rendering
+* add clouds that slowly flow over the screen and the cursor disperses them?

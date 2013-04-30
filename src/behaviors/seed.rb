@@ -1,11 +1,8 @@
 define_behavior :seed do
-  requires :stage, :world, :timer_manager, :sound_manager
-
-  # requires_behaviors :highlight_on_grow
-  requires_behaviors :oversize_on_create
+  requires :stage, :world, :timer_manager
   setup do
-    sound_manager.play_sound :pop
-    world.occupy(actor.x, actor.y, actor)
+    actor.has_attributes slice: World::GROUND
+    world.occupy(actor.x, actor.y, actor.slice, actor)
 
     grow_interval = opts[:grow_interval]
     if grow_interval
@@ -20,8 +17,8 @@ define_behavior :seed do
     def seed_grow_timer_name; "seed_grow_#{object_id}" end
     def remove
       # seeds do not move, so this is safe
-      occ = world.occupant_at(actor.x, actor.y)
-      world.occupy(actor.x, actor.y, nil) if occ == actor
+      occ = world.occupant_at(actor.x, actor.y, actor.slice)
+      world.occupy(actor.x, actor.y, actor.slice, nil) if occ == actor
       timer_manager.remove_timer seed_grow_timer_name
     end
   end

@@ -1,9 +1,11 @@
 class World
   construct_with :config_manager, :director
+  GROUND = 0
+  SKY = 1
 
   def initialize
     @old_things = []
-    @grid = {}
+    @grid = Hash.new { |h, k| h[k] = {} }
     width, height = *config_manager[:screen_resolution]
     @width = width / CoordinatesTranslator::CELL_SIZE
     @height = height / CoordinatesTranslator::CELL_SIZE
@@ -13,9 +15,9 @@ class World
     end
   end
 
-  def occupant_at(x,y)
-    @grid[x.to_i] ||= {}
-    @grid[x.to_i][y.to_i]
+  def occupant_at(x,y,z)
+    @grid[z][x.to_i] ||= {}
+    @grid[z][x.to_i][y.to_i]
   end
   alias occupant_at? occupant_at
 
@@ -23,26 +25,18 @@ class World
     x >= 0 && x < @width && y >= 0 && y <= @height
   end
 
-  def occupy(x,y,thing)
-    @grid[x.to_i] ||= {}
-    old_thing = @grid[x.to_i][y.to_i]
-    @grid[x.to_i][y.to_i] = thing
+  def occupy(x,y,z,thing)
+    @grid[z][x.to_i] ||= {}
+    old_thing = @grid[z][x.to_i][y.to_i]
+    @grid[z][x.to_i][y.to_i] = thing
     @old_things << old_thing if old_thing
-
-    # seed_count = 0
-    # @grid.each do |x, y_hash|
-    #   y_hash.each do |y, thing|
-    #     seed_count += 1 if thing
-    #   end
-    # end
-    # log "SEED COUNT: #{seed_count}"
   end
 
-  def occupants_for_box(x,y,w,h)
+  def occupants_for_box(x,y,z,w,h)
     occupants = []
     h.to_i.times do |i|
       w.to_i.times do |j|
-        occ = occupant_at(x+i,y+j)
+        occ = occupant_at(x+i,y+j,z)
         occupants << occ if occ
       end
     end

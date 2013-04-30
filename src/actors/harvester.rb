@@ -6,8 +6,14 @@ define_actor :harvester do
     setup do
       input_manager.reg :mouse_down, MsRight do |event|
         pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
-        occupant = world.occupant_at(pos.x, pos.y)
+        occupant = world.occupant_at(pos.x, pos.y, World::GROUND)
         occupant.react_to :harvest if occupant
+      end
+
+      input_manager.reg :mouse_motion do |event|
+        pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
+        occupant = world.occupant_at(pos.x, pos.y, World::SKY)
+        occupant.react_to :disperse if occupant
       end
 
       reacts_with :remove

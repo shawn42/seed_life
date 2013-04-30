@@ -5,6 +5,8 @@ define_actor :flower_seed do
   has_behaviors do
     positioned
     seed grow_interval: 5_500
+    oversize_on_create
+    pop_on_create
   end
 
   behavior do
@@ -44,7 +46,7 @@ define_actor :flower_seed do
       def grow_relative(dx, dy)
         x = actor.x + dx
         y = actor.y + dy
-        occupant = world.occupant_at(x, y)
+        occupant = world.occupant_at(x, y, World::GROUND)
         planter.plant(actor.actor_type, x: x , y: y, color: colors.sample, pattern_number: actor.pattern_number+1) unless occupant
       end
     end

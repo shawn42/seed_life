@@ -5,5 +5,7 @@ define_actor :rock_seed do
   has_behaviors do
     positioned
     seed
+    oversize_on_create
+    pop_on_create
   end
 end

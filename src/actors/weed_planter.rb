@@ -1,6 +1,6 @@
 define_actor :weed_planter do
   behavior do
-    requires :stage, :timer_manager, :world
+    requires :planter, :timer_manager, :world
     
     setup do
       actor.has_attributes force_weed_every: 30_000
@@ -16,7 +16,7 @@ define_actor :weed_planter do
       def add_weed
         x = rand(50)
         y = rand(40)
-        stage.create_actor(:weed_seed, x: x , y: y) unless world.occupant_at?(x, y)
+        planter.plant(:weed_seed, x: x , y: y) unless world.occupant_at?(x, y, World::GROUND)
       end
         
 
