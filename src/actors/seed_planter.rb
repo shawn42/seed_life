@@ -4,7 +4,7 @@ define_actor :seed_planter do
     requires :world, :input_manager, :planter, :coordinates_translator
     
     setup do
-      actor.has_attributes current_seed: :rock_seed
+      actor.has_attributes current_seed: :rock_seed, producing: false
       # TODO loop over seed types?
       input_manager.reg(:down, Kb1) { change_seed_to :rock_seed }
       input_manager.reg(:down, Kb2) { change_seed_to :water_seed }
@@ -14,33 +14,21 @@ define_actor :seed_planter do
       input_manager.reg(:down, Kb6) { change_seed_to :flower_seed }
       input_manager.reg(:down, Kb0) { change_seed_to :weed_seed }
 
-      input_manager.reg :mouse_up, MsLeft do |event|
-        # XXX known bug, will try to create seed from this event AND the drag event
-        # the world wont allow it for now
+      input_manager.reg :mouse_down, MsLeft do |event|
         pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
         planter.plant(actor.current_seed, x: pos.x, y: pos.y) unless world.occupant_at?(pos.x,pos.y, World::GROUND)
+        actor.producing = true
       end
 
-      input_manager.reg :mouse_drag, MsLeft do |event|
-        to = vec2(*event[:data][:to])
-        from = vec2(*event[:data][:from])
-        to = coordinates_translator.translate_screen_to_world(to)
-        from = coordinates_translator.translate_screen_to_world(from)
-
-        # ug.. polaris is not doing me any favors here
-        coords = LineOfSite.new(nil).brensenham_line(from.x.to_i, from.y.to_i, to.x.to_i, to.y.to_i)
-
-        coords.each do |(x,y)|
-          planter.plant actor.current_seed, x: x, y: y unless world.occupant_at?(x,y, World::GROUND)
+      input_manager.reg :mouse_motion do |event|
+        if actor.producing
+          pos = coordinates_translator.translate_screen_to_world(vec2(*event[:data]))
+          planter.plant(actor.current_seed, x: pos.x, y: pos.y) unless world.occupant_at?(pos.x,pos.y, World::GROUND)
+          actor.producing = true
         end
       end
 
-      # TODO replace with cloud_planter
-      input_manager.reg(:down, KbC) do
-        x = 0
-        y = rand(40)
-        planter.plant(:cloud_seed, x: x, y: y, slice: World::SKY) unless world.occupant_at?(x, y, World::SKY)
-      end
+      input_manager.reg(:mouse_up, MsLeft) { actor.producing = false }
 
       reacts_with :remove
     end
