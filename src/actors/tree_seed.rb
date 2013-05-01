@@ -1,9 +1,9 @@
 define_actor :tree_seed do
-  has_attributes color: Color.argb(0xFF59955C),
-    view: :seed_view
+  has_attributes view: :seed_view
   
   has_behaviors do
     positioned
+    layered ZOrder::Seeds
     seed grow_interval: 10_000
     oversize_on_create
     pop_on_create

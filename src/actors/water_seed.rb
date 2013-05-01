@@ -1,9 +1,9 @@
 define_actor :water_seed do
-  has_attributes color: Color.argb(0xFF00BFFF),
-    view: :seed_view
+  has_attributes view: :seed_view
   
   has_behaviors do
     positioned
+    layered ZOrder::Seeds
     seed grow_interval: 2_000
     oversize_on_create
     pop_on_create

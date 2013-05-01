@@ -8,10 +8,12 @@ define_actor_view :seed_view do
 
     actor.when(:inflate_by_changed) do
       @box = @original_box.inflate(actor.inflate_by, actor.inflate_by)
+      mark_dirty!
     end
     actor.when(:fade_by_changed) do
       c = actor.color
       @color = Color.argb(c.alpha - actor.fade_by, c.red, c.green, c.blue)
+      mark_dirty!
     end
   end
 

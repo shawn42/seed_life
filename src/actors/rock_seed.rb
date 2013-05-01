@@ -1,8 +1,8 @@
 define_actor :rock_seed do
-  has_attributes color: Color::GRAY,
-    view: :seed_view
+  has_attributes view: :seed_view
 
   has_behaviors do
+    layered ZOrder::Seeds
     positioned
     seed
     oversize_on_create

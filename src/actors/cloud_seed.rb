@@ -1,9 +1,9 @@
 define_actor :cloud_seed do
-  has_attributes view: :seed_view,
-    layered: ZOrder::Clouds
+  has_attributes view: :seed_view
   
   has_behaviors do
     positioned
+    layered ZOrder::Clouds
     seed grow_interval: 1_000
     puff_on_death
   end
@@ -12,7 +12,8 @@ define_actor :cloud_seed do
     requires :world, :planter
 
     setup do
-      actor.has_attributes color: Color.argb(rand(120..240), 0xDD, 0xDD, 0xDD)
+      actor.has_attributes :color
+      actor.color = Color.argb(rand(120..240), 0xDD, 0xDD, 0xDD)
 
       reacts_with :grow
     end

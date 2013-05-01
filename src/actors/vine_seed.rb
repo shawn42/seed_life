@@ -1,9 +1,9 @@
 define_actor :vine_seed do
-  has_attributes color: Color.argb(0xFF5EAE9E),
-    view: :seed_view
+  has_attributes view: :seed_view
   
   has_behaviors do
     positioned
+    layered ZOrder::Seeds
     seed grow_interval: 7_000
     oversize_on_create
     pop_on_create
