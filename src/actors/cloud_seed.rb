@@ -24,11 +24,11 @@ define_actor :cloud_seed do
           up_modifier = relative_occupant(0, -1) ? 30 : 0
           down_modifier = relative_occupant(0, 1) ? 30 : 0
 
-          up = (rand(100) - up_modifier) < 45
-          down = (rand(100) - down_modifier) < 45
+          up = (rand(100) - up_modifier) < 35
+          down = (rand(100) - down_modifier) < 35
 
           grow_relative -1, -1 if up
-          grow_relative -1, 0 if (up && down) || (rand(100) < 50)
+          grow_relative -1, 0 if (up && down) || (rand(100) < 40)
           grow_relative -1, 1 if down
         end
       end

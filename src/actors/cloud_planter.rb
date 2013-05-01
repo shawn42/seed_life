@@ -3,7 +3,7 @@ define_actor :cloud_planter do
     requires :planter, :timer_manager, :world
     
     setup do
-      actor.has_attributes force_cloud_every: 1_000
+      actor.has_attributes force_cloud_every: 6_000
 
       timer_manager.add_timer cloud_timer_name, actor.force_cloud_every do
         add_clouds
