@@ -1,5 +1,6 @@
 define_behavior :seed do
   requires :stage, :world, :timer_manager
+  requires_behaviors :harvestable
   setup do
     actor.has_attributes slice: World::GROUND,
                       color: SEED_COLORS[actor.actor_type]

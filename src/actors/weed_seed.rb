@@ -13,14 +13,10 @@ define_actor :weed_seed do
     requires :world, :planter
 
     setup do
-      reacts_with :harvest, :grow
+      reacts_with :grow
     end
 
     helpers do
-      def harvest
-        actor.remove
-      end
-
       def grow
         if room_to_grow?
           dx = rand(8) - 4
