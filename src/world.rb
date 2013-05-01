@@ -1,5 +1,8 @@
 class World
   construct_with :config_manager, :director
+
+  attr_accessor :height, :width
+
   GROUND = 0
   SKY = 1
 

@@ -6,7 +6,12 @@ define_actor_view :seed_view do
     if actor.do_or_do_not(:inflate_by)
       box.inflate!(actor.inflate_by, actor.inflate_by)
     end
-    target.fill box.x, box.y, box.r, box.b, actor.color, ZOrder::Seeds
+
+    color = actor.color
+    if actor.do_or_do_not(:fade_by)
+      color = Color.argb(color.alpha - actor.fade_by, color.red, color.green, color.blue)
+    end
+    target.fill box.x, box.y, box.r, box.b, color, ZOrder::Seeds
   end
 end
 

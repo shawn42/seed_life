@@ -37,8 +37,8 @@ define_actor :seed_planter do
 
       # TODO replace with cloud_planter
       input_manager.reg(:down, KbC) do
-        x = 8
-        y = 3
+        x = 0
+        y = rand(40)
         planter.plant(:cloud_seed, x: x, y: y, slice: World::SKY) unless world.occupant_at?(x, y, World::SKY)
       end
 
