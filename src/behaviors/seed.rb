@@ -1,7 +1,8 @@
 define_behavior :seed do
   requires :stage, :world, :timer_manager
   setup do
-    actor.has_attributes slice: World::GROUND
+    actor.has_attributes slice: World::GROUND,
+                      layered: ZOrder::Seeds
     world.occupy(actor.x, actor.y, actor.slice, actor)
 
     grow_interval = opts[:grow_interval]

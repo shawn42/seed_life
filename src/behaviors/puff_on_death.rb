@@ -9,7 +9,7 @@ define_behavior :puff_on_death do
 
   helpers do
     def disperse
-      actor.has_attributes puff_tween: Tween.new([3,0], [-15, 200], Tween::Elastic::In, 200)
+      actor.has_attributes puff_tween: Tween.new([4,0], [-15, 100], Tween::Elastic::In, 200)
       director.when :update do |t_ms|
         actor.puff_tween.update t_ms
         actor.inflate_by = actor.puff_tween[0]

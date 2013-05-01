@@ -20,9 +20,8 @@ define_actor :cloud_seed do
     helpers do
       def grow
         move_over 1, 0
+        if false
         unless actor.x > 0
-          # TODO how many are touching me?
-          new_clouds = world.occupants_for_box(0,0,World::SKY,1,world.height)
           up_modifier = relative_occupant(0, -1) ? 30 : 0
           down_modifier = relative_occupant(0, 1) ? 30 : 0
 
@@ -32,6 +31,7 @@ define_actor :cloud_seed do
           grow_relative -1, -1 if up
           grow_relative -1, 0 if (up && down) || (rand(100) < 50)
           grow_relative -1, 1 if down
+        end
         end
       end
 

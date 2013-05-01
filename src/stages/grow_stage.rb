@@ -8,6 +8,7 @@ define_stage :grow do
     @seed_planter = create_actor :seed_planter
     @cloud_planter = create_actor :cloud_planter
     @harvester = create_actor :harvester
+    input_manager.reg(:down, KbF1) { create_actor :fps, x: 800, y: 10 }
   end
 
   # helpers do
