@@ -6,6 +6,11 @@ define_actor_view :seed_view do
     @box = @original_box
     @color = actor.color
 
+    actor.when(:position_changed) do
+      @original_box = coordinates_translator.translate_world_to_screen actor.position
+      @box = @original_box
+      mark_dirty! 
+    end
     actor.when(:inflate_by_changed) do
       @box = @original_box.inflate(actor.inflate_by, actor.inflate_by)
       mark_dirty!

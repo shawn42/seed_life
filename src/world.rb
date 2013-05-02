@@ -28,6 +28,18 @@ class World
     x >= 0 && x < @width && y >= 0 && y <= @height
   end
 
+  def move!(x,y,z, xx,yy,zz)
+    @grid[z][x.to_i] ||= {}
+    thing = @grid[z][x.to_i][y.to_i]
+    @grid[z][x.to_i][y.to_i] = nil
+
+    if in_bounds?(xx, yy)
+      occupy(xx,yy,zz, thing)
+    else
+      thing.remove
+    end
+  end
+
   def occupy(x,y,z,thing)
     @grid[z][x.to_i] ||= {}
     old_thing = @grid[z][x.to_i][y.to_i]

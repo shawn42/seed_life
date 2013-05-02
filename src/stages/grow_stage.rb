@@ -21,6 +21,7 @@ define_stage :grow do
     @harvester = create_actor :harvester
     input_manager.reg(:down, KbF1) { @fps = create_actor :fps, x: 800, y: 10 }
     input_manager.reg(:down, KbF2) { @fps.remove if @fps }
+    # input_manager.reg(:down, KbF3) { binding.pry }
   end
 
   # helpers do

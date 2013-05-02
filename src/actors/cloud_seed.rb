@@ -21,7 +21,7 @@ define_actor :cloud_seed do
     helpers do
       def grow
         move_over 1, 0
-        unless actor.x > 0
+        unless actor.x > 1
           up_modifier = relative_occupant(0, -1) ? 30 : 0
           down_modifier = relative_occupant(0, 1) ? 30 : 0
 
@@ -37,9 +37,8 @@ define_actor :cloud_seed do
       def move_over(dx, dy)
         x = actor.x + dx
         y = actor.y + dy
-        occupant = world.occupant_at(x, y, World::SKY)
-        planter.plant(:cloud_seed, x: x , y: y, color: actor.color, slice: World::SKY) unless occupant
-        actor.remove
+        world.move!(actor.x, actor.y, World::SKY, x, y, World::SKY)
+        actor.update_attributes(x: x, y: y)
       end
 
       def relative_occupant(dx, dy)
@@ -49,7 +48,7 @@ define_actor :cloud_seed do
       end
 
       def grow_relative(dx, dy)
-        x = actor.x + dx + 1
+        x = actor.x + dx
         y = actor.y + dy
         occupant = world.occupant_at(x, y, World::SKY)
         planter.plant(:cloud_seed, x: x , y: y, slice: World::SKY) unless occupant
