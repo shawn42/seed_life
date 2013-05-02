@@ -6,7 +6,7 @@ SEEDS = [
   :tree_seed,
   :flower_seed,
   :weed_seed
-]
+] unless defined?(SEEDS)
 define_actor :seed_planter do
   has_behaviors do
     layered ZOrder::Hud
