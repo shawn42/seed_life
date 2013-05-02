@@ -1,3 +1,12 @@
+SEEDS = [
+  :rock_seed,
+  :water_seed,
+  :bush_seed,
+  :vine_seed,
+  :tree_seed,
+  :flower_seed,
+  :weed_seed
+]
 define_actor :seed_planter do
   has_behaviors do
     layered ZOrder::Hud
@@ -10,14 +19,12 @@ define_actor :seed_planter do
       actor.has_attributes current_seed: :rock_seed, planting: false,
         straight_lines: false, last_planted: nil, line_on_axis: nil, x: 10, y: 10
 
-      # TODO loop over seed types?
-      input_manager.reg(:down, Kb1) { change_seed_to :rock_seed }
-      input_manager.reg(:down, Kb2) { change_seed_to :water_seed }
-      input_manager.reg(:down, Kb3) { change_seed_to :bush_seed }
-      input_manager.reg(:down, Kb4) { change_seed_to :vine_seed }
-      input_manager.reg(:down, Kb5) { change_seed_to :tree_seed }
-      input_manager.reg(:down, Kb6) { change_seed_to :flower_seed }
-      input_manager.reg(:down, Kb0) { change_seed_to :weed_seed }
+      SEEDS.each.with_index do |seed, i|
+        input_manager.reg(:down, Object.const_get("Kb#{i+1}")) { change_seed_to seed }
+      end
+
+      input_manager.reg(:mouse_down, MsWheelUp) { change_seed_down }
+      input_manager.reg(:mouse_down, MsWheelDown) { change_seed_up }
 
       input_manager.while_pressed([KbLeftShift, KbRightShift], actor, :straight_lines)
 
@@ -68,6 +75,17 @@ define_actor :seed_planter do
     helpers do
       def change_seed_to(seed_type)
         actor.current_seed = seed_type
+      end
+
+      def change_seed_down
+        current_index = SEEDS.index(actor.current_seed) - 1
+        actor.current_seed = SEEDS[current_index]
+      end
+
+      def change_seed_up
+        current_index = SEEDS.index(actor.current_seed) + 1
+        current_index = 0 if current_index == SEEDS.size
+        actor.current_seed = SEEDS[current_index]
       end
 
       def remove
