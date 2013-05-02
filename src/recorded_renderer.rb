@@ -32,12 +32,12 @@ class RecordedRenderer < Renderer
   end
 
   def draw(target)
-    center_x = viewport.width / 2
-    center_y = viewport.height / 2
+    @center_x ||= viewport.width / 2
+    @center_y ||= viewport.height / 2
+    if @dirty
+      @image = target.record(viewport.width, viewport.height) do
 
-    target.rotate(-viewport.rotation, center_x, center_y) do
-      if @dirty
-        @image = target.record(viewport.width, viewport.height) do
+        target.rotate(-viewport.rotation, @center_x, @center_y) do
           z = 0
           @parallax_layers.each do |parallax_layer|
             drawables_on_parallax_layer = @drawables[parallax_layer]
@@ -58,7 +58,7 @@ class RecordedRenderer < Renderer
         end
         @dirty = false
       end
-      target.draw_image @image,0,0,0
     end
+    target.draw_image @image,0,0,0
   end
 end

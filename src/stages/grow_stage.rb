@@ -31,3 +31,65 @@ define_stage :grow do
   # end
 end
 
+class TimerManager
+
+  def add_timer(name, interval_ms, recurring = true, &block)
+    # log "add_timer: #{name}"
+    raise "timer [#{name}] already exists" if @timers[name]
+    # log "timers size: #{@timers.size}"
+    @timers[name] = {
+      count: 0, recurring: recurring,
+      interval_ms: interval_ms, callback: block}
+  end
+
+  def remove_timer(name)
+    # log "remove_timer: #{name} #{caller[0..9]}"
+    @timers.delete name
+  end
+  
+end
+
+# Directors manage actors.
+class Director
+
+  def clear_subscriptions
+    @subscriptions = Hash[@update_slots.map { |slot| [slot, []] }]
+    @new_subscriptions = []
+    @unsubscriptions = []
+  end
+
+  def when(event=:update, &callback)
+    @new_subscriptions << [event, callback]
+  end
+
+  def update(time)
+    @new_subscriptions.each do |(event, callback)|
+      @subscriptions[event] ||= []
+      @subscriptions[event] << callback
+    end
+    @new_subscriptions.clear
+
+    @unsubscriptions.each do |listener|
+      for slot in @subscriptions.keys
+        @subscriptions[slot].delete_if do |block|
+          eval('self',block.binding).equal?(listener)
+        end
+      end
+    end
+    @unsubscriptions.clear
+
+    time_in_seconds = time / 1000.to_f
+    @update_slots.each do |slot|
+      @subscriptions[slot].each do |callback|
+        callback.call time, time_in_seconds
+      end
+    end
+
+  end
+
+  def unsubscribe_all(listener)
+    @unsubscriptions << listener
+  end
+
+end
+

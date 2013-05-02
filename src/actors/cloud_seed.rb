@@ -13,7 +13,7 @@ define_actor :cloud_seed do
 
     setup do
       actor.has_attributes :color
-      actor.color = Color.argb(rand(120..240), 0xDD, 0xDD, 0xDD)
+      actor.color = Color.argb(rand_from_range(120..240), 0xDD, 0xDD, 0xDD)
 
       reacts_with :grow
     end

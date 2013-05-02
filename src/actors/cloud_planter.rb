@@ -15,8 +15,8 @@ define_actor :cloud_planter do
 
     helpers do
       def add_clouds
-        rand(0..2).times do
-          if rand(100) < 30
+        rand_from_range(0..2).times do
+          if rand(100) < 40
             y = rand(40)
             planter.plant(:cloud_seed, x: 0 , y: y, slice: World::SKY) unless world.occupant_at?(0, y, World::SKY)
           end

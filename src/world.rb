@@ -32,7 +32,7 @@ class World
     @grid[z][x.to_i] ||= {}
     old_thing = @grid[z][x.to_i][y.to_i]
     @grid[z][x.to_i][y.to_i] = thing
-    @old_things << old_thing if old_thing
+    @old_things << old_thing if old_thing && thing
   end
 
   def occupants_for_box(x,y,z,w,h)
