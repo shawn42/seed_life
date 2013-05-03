@@ -23,7 +23,7 @@ STATS_DIRECTORIES = [
 # TODO wrap this all in Gamebox
 Releasy::Project.new do
   name Gamebox.configuration.game_name.gsub(' ','')
-  version "0.0.1"
+  version "0.0.2"
   verbose # Can be removed if you don't want to see all build messages.
 
   executable "src/app.rb"
