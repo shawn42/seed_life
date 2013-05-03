@@ -19,6 +19,7 @@ STATS_DIRECTORIES = [
   %w(Libraries         lib/),
 ].collect { |name, dir| [ name, "#{APP_ROOT}/#{dir}" ] }.select { |name, dir| File.directory?(dir) }
 
+Releasy::Builders::OsxApp::SOURCE_GEMS_TO_REMOVE = %w(chingu chingu.rb chipmunk.bundle chipmunk.rb)
 
 # TODO wrap this all in Gamebox
 Releasy::Project.new do
@@ -36,7 +37,7 @@ Releasy::Project.new do
   add_build :osx_app do
     # lipo -remove x86_64 SeedLife.app/Contents/MacOS/SeedLife -output SeedLife.app/Contents/MacOS/SeedLife
     url "com.github.shawn42.seed_life"
-    wrapper "#{ENV['HOME']}/tmp/gosu-mac-wrapper-0.7.41.tar.gz" 
+    wrapper "#{ENV['HOME']}/tmp/gosu-mac-wrapper-0.7.47.tar.gz" 
     icon "data/icons/seedlife.icns"
     add_package :tar_gz
   end

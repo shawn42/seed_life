@@ -65,6 +65,7 @@ define_actor :seed_planter do
       end
 
       input_manager.reg(:mouse_up, MsLeft) { 
+        actor.last_planted = nil
         actor.planting = false 
         actor.line_on_axis = nil
       }

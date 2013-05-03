@@ -93,4 +93,11 @@ class Director
   end
 
 end
+class Vector2
+  def ==( vector )
+    # TODO add this nil check to gamebox
+    return false if vector.nil?
+    _nearly_equal?(@x, vector.at(0)) and _nearly_equal?(@y, vector.at(1))
+  end
+end
 
