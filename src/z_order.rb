@@ -3,6 +3,7 @@ module ZOrder
   Seeds,
   Critters,
   Clouds,
+  Noise,
   Hud,
   Debug,
   Console = *(0..100)
