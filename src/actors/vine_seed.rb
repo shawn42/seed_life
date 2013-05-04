@@ -19,10 +19,10 @@ define_actor :vine_seed do
     helpers do
       def range; 8 end
       def grow
-        immediate_neighbors = world.occupants_for_box(actor.x-1,actor.y-1,World::GROUND, 2,2)
+        immediate_neighbors = world.occupants_for_box(actor.x-1,actor.y-1,World::GROUND, 3,3)
         unless immediate_neighbors.any?{|neighbor| neighbor.actor_type == :water_seed}
 
-          others = world.occupants_for_box(actor.x - range, actor.y - range, World::GROUND, range, range)
+          others = world.occupants_for_box(actor.x - range, actor.y - range, World::GROUND, range*2, range*2)
           waters = others.select{|actor| actor.actor_type == :water_seed}
 
           unless waters.empty?
