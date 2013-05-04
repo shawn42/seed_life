@@ -1,11 +1,17 @@
 define_actor_view :seed_view do
   requires :coordinates_translator
 
+  # TODO gamebox needs to call helpers _before_ setup!
+  # helpers do
+  #   include MinMaxHelpers
+  # end
+
   setup do
+    self.class.send(:include, MinMaxHelpers)
     @original_box = coordinates_translator.translate_world_to_screen actor.position
     @box = @original_box
     @color = actor.color.dup
-    @color.value = [0, [@color.value+((rand-0.8)/20),1].min].max
+    @color.value = max(0, min(@color.value+((rand-0.8)/20),1))
     @rndcolors = [@color.dup,@color.dup,@color.dup,@color.dup]
     @rndcolors.each do |c|
       c.value=[0, [@color.value+(rand/20),1].min].max
