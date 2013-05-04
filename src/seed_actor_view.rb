@@ -4,7 +4,20 @@ define_actor_view :seed_view do
   setup do
     @original_box = coordinates_translator.translate_world_to_screen actor.position
     @box = @original_box
-    @color = actor.color
+    @color = actor.color.dup
+    @color.value = [0, [@color.value+((rand-0.8)/20),1].min].max
+    @rndcolors = [@color.dup,@color.dup,@color.dup,@color.dup]
+    @rndcolors.each do |c|
+      c.value=[0, [@color.value+(rand/20),1].min].max
+    end
+
+    h = 10
+    @qds = [
+      [[0, 0],[h,h]],
+      [[h,0],[h*2,h]],
+      [[0,h],[h,h*2]],
+      [[h,h,h*2,h*2]]
+    ]
 
     actor.when(:position_changed) do
       @original_box = coordinates_translator.translate_world_to_screen actor.position
@@ -23,7 +36,11 @@ define_actor_view :seed_view do
   end
 
   draw do |target, x_off, y_off, z|
-    target.fill @box.x, @box.y, @box.r, @box.b, @color, z
+    h = 10
+    target.fill @box.x, @box.y, @box.x+h, @box.y+h, @rndcolors[0], z
+    target.fill @box.x+h, @box.y, @box.r, @box.y+h, @rndcolors[1], z
+    target.fill @box.x, @box.y+h, @box.x+h, @box.b, @rndcolors[2], z
+    target.fill @box.x+h, @box.y+h, @box.r, @box.b, @rndcolors[3], z
   end
 
 end

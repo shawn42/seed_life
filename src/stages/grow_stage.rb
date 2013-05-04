@@ -19,6 +19,8 @@ define_stage :grow do
     @seed_planter = create_actor :seed_planter
     @cloud_planter = create_actor :cloud_planter
     @harvester = create_actor :harvester
+    create_actor(:icon, image: "grain.png", x: 512, y: 400)
+
     input_manager.reg(:down, KbF1) { @fps = create_actor :fps, x: 800, y: 10 }
     input_manager.reg(:down, KbF2) { @fps.remove if @fps }
     # input_manager.reg(:down, KbF3) { binding.pry }
