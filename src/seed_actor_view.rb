@@ -10,18 +10,10 @@ define_actor_view :seed_view do
     self.class.send(:include, MinMaxHelpers)
     @original_box = coordinates_translator.translate_world_to_screen actor.position
     @box = @original_box
-# <<<<<<< Updated upstream
-    # @color = actor.color.dup
-    # @color.value = max(0, min(@color.value+((rand-0.8)/20),1))
-# ||||||| merged common ancestors
-    # @color = actor.color.dup
-    # @color.value = [0, [@color.value+((rand-0.8)/20),1].min].max
-# =======
     @color = actor.color
-# >>>>>>> Stashed changes
     @rndcolors = [@color.dup,@color.dup,@color.dup,@color.dup]
     @rndcolors.each do |c|
-      c.value=[0, [@color.value+((rand-0.5)/20),1].min].max
+      c.value=max(0, min(@color.value+((rand-0.5)/15),1))
     end
 
     # h = 10
