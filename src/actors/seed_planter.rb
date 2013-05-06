@@ -100,7 +100,7 @@ define_actor :seed_planter do
     requires :font_style_factory
 
     setup do
-      @font = font_style_factory.build("Asimov.ttf", 30, Color::WHITE)
+      @font = font_style_factory.build("pixelart.ttf", 25, Color::WHITE)
 
       @bg_color = Color.argb(0x99222222)
       actor.when(:current_seed_changed) do
@@ -111,7 +111,7 @@ define_actor :seed_planter do
     end
 
     draw do |target, x_off, y_off, z|
-      target.fill(actor.x, actor.y, actor.x+150, actor.y+50, @bg_color, z)
+      target.fill(actor.x, actor.y, actor.x+170, actor.y+50, @bg_color, z)
       box = Rect.new(actor.x+10, actor.y+10, 30, 30)
       target.fill(box.x, box.y, box.r, box.b, @seed_color, z)
       target.print(actor.current_seed.to_s.gsub('_seed','').upcase, actor.x+50, actor.y+10, z, @font)
