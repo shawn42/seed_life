@@ -7,6 +7,8 @@ class World
   SKY = 1
 
   def initialize
+    # TODO possibly hash these by type?
+    @critters = []
     @old_things = []
     @grid = Hash.new { |h, k| h[k] = {} }
     width, height = *config_manager[:screen_resolution]
@@ -16,6 +18,22 @@ class World
       @old_things.each { |thing| thing.remove }
       @old_things.clear
     end
+  end
+
+  def add_critter(critter)
+    @critters << critter
+  end
+
+  def remove_critter(critter)
+    @critters.delete(critter)
+  end
+
+  def critters_of_type(type)
+    @critters.select{|critter| critter.actor_type == type}
+  end
+
+  def all(z)
+    @grid[z].values.map(&:values).flatten.compact
   end
 
   def occupant_at(x,y,z)

@@ -1,3 +1,4 @@
+colors from: http://www.hitmill.com/html/pastels2.html
 * plants could "tap" water seeds.. they could dry up?
 * flowers of different (random) colors? behave like weeds?
   * maybe plant in rows?

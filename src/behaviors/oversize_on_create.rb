@@ -12,16 +12,21 @@ define_behavior :oversize_on_create do
 
       if actor.oversize_tween.done
         actor.inflate_by = 0
-        actor.remove_behavior :oversize_on_create
+        # actor.remove_behavior :oversize_on_create
       end
     end
 
-    reacts_with :remove
+    reacts_with :remove, :oversize
   end
 
   helpers do
     def remove
       director.unsubscribe_all self
+    end
+
+    def oversize
+      actor.inflate_by = 5
+      actor.oversize_tween = Tween.new(actor.inflate_by, 2, Tween::Elastic::Out, 300)
     end
   end
 end
