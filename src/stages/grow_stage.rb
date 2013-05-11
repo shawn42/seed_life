@@ -21,7 +21,7 @@ define_stage :grow do
     @seed_planter = create_actor :seed_planter
     @cloud_planter = create_actor :cloud_planter
     @harvester = create_actor :harvester
-    @critter_creator = create_actor :critter_creator, add_critter_every: 2_000
+    @critter_creator = create_actor :critter_creator
 
     input_manager.reg(:down, KbF1) { @fps = create_actor :fps, x: 800, y: 10 }
     input_manager.reg(:down, KbF2) { @fps.remove if @fps }
